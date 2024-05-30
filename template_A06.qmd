@@ -152,7 +152,7 @@ for(ballers in names(player_info)){
   points_per_game <- player_info[[ballers]]$points/player_info[[ballers]]$games_played
 ppg[[ballers]] <- points_per_game
 }
-ppg
+print(ppg)
 ```
 
 
@@ -163,8 +163,7 @@ Use the list created in Part c and an appropriate apply function to round each v
 Store the output as a vector and print the results.
 
 ```{r}
-ppg <- unlist(ppg)
-ppg <- round(ppg, digits = 2)
+ppg <- sapply(ppg, round, digits = 2)
 print(ppg)
 ```
 
@@ -259,7 +258,7 @@ Example (this is NOT the answer just an example of what goes in the {}):
 Note: This code should still run successfully even if the numbers were to change.
 
 ```{r}
-med_temp_CO <- apply(state_CO[, -1], 1, median)
+med_temp_CO <- apply(state_CO[, 3:14], 1, median)
 
 # Assign vars so paste0 is cleaner
 max_yr <- state_CO[which.max(med_temp_CO), 2]

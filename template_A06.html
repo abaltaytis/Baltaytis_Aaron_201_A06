@@ -3361,7 +3361,7 @@ $SO$height
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  points_per_game <span class="ot">&lt;-</span> player_info[[ballers]]<span class="sc">$</span>points<span class="sc">/</span>player_info[[ballers]]<span class="sc">$</span>games_played</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>ppg[[ballers]] <span class="ot">&lt;-</span> points_per_game</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>ppg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ppg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$MJ
 [1] 33.44693
@@ -3385,9 +3385,8 @@ $SO
 <p>Use the list created in Part c and an appropriate apply function to round each value to two decimal places.</p>
 <p>Store the output as a vector and print the results.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ppg <span class="ot">&lt;-</span> <span class="fu">unlist</span>(ppg)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ppg <span class="ot">&lt;-</span> <span class="fu">round</span>(ppg, <span class="at">digits =</span> <span class="dv">2</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ppg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ppg <span class="ot">&lt;-</span> <span class="fu">sapply</span>(ppg, round, <span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ppg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   MJ    LJ    KB    KA    SO 
 33.45 28.44 25.64 24.31 24.31 </code></pre>
@@ -3421,12 +3420,12 @@ $SO
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(round_mat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5]
-[1,]  700  600  700   80 2000
-[2,]  400 2000 2000 2000   20
-[3,]   10  100   10  200   50
-[4,]   50 1000  300 2000 2000
-[5,] 2000 2000  200   60  600
-[6,]  500   60  700 1000   50</code></pre>
+[1,]  700  800   70   40   90
+[2,] 2000  100   70 1000  400
+[3,] 2000   10  700   60 1000
+[4,]  100  100 1000 1000 1000
+[5,]  500   90 2000  900  800
+[6,]   60  900 1000 2000  300</code></pre>
 </div>
 </div>
 </section>
@@ -3481,7 +3480,7 @@ $SO
 <p>“The maximum median annual temperature of 68.25 occurred in 2017 and the minimum median annual temperature of 57.15 occurred in 1907.”</p>
 <p>Note: This code should still run successfully even if the numbers were to change.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>med_temp_CO <span class="ot">&lt;-</span> <span class="fu">apply</span>(state_CO[, <span class="sc">-</span><span class="dv">1</span>], <span class="dv">1</span>, median)</span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>med_temp_CO <span class="ot">&lt;-</span> <span class="fu">apply</span>(state_CO[, <span class="dv">3</span><span class="sc">:</span><span class="dv">14</span>], <span class="dv">1</span>, median)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign vars so paste0 is cleaner</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>max_yr <span class="ot">&lt;-</span> state_CO[<span class="fu">which.max</span>(med_temp_CO), <span class="dv">2</span>]</span>
@@ -3491,7 +3490,7 @@ $SO
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;The maximum median annual temperature of &quot;</span>, max_temp, <span class="st">&quot; occurred in &quot;</span>, max_yr, <span class="st">&quot; and the minimum median annual temperature of &quot;</span>, min_temp, <span class="st">&quot; occurred in &quot;</span>, min_yr, <span class="st">&quot; .&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] &quot;The maximum median annual temperature of 67.8 occurred in 1963 and the minimum median annual temperature of 51.7 occurred in 1984 .&quot;</code></pre>
+<pre><code>[1] &quot;The maximum median annual temperature of 63.95 occurred in 1934 and the minimum median annual temperature of 50.85 occurred in 1984 .&quot;</code></pre>
 </div>
 </div>
 </section>
